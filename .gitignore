@@ -8,7 +8,11 @@ __pycache__/
 *.py[cod]
 *$py.class
 config.py
-
+cc2
+facialLandmark
+Images
+convertPtsToText.py
+oldAll_Ratings.csv
 
 # C extensions
 *.so
