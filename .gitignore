@@ -13,6 +13,7 @@ facialLandmark
 Images
 convertPtsToText.py
 oldAll_Ratings.csv
+*.h5
 
 # C extensions
 *.so
