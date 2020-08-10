@@ -1,0 +1,32 @@
+#mapid { 
+    height: 180px; 
+}
+
+
+.jumbotronAbout {
+    background-image: url('../image/about.png');
+    background-size: 100% 100%;
+}
+
+#aboutUs {
+    text-align: center;
+}
+
+body {
+    background-color: rgb(235, 222, 205);
+    /* background-color: black; */
+}
+
+h3 {
+font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+
+}
+
+.card-body {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+
+.card-img, .card-img-bottom, .card-img-top {
+    width: 200px;
+}

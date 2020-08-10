@@ -18,6 +18,10 @@ app.config['JSON_SORT_KEYS'] = False
 
 @app.route("/")
 def home():
+    return render_template('landing.html')
+
+@app.route("/photochecker")
+def photochecker():
     return render_template('photochecker.html')
 
 @app.route("/about")
