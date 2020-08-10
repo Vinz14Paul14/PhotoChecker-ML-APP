@@ -4,13 +4,17 @@
 import os
 from flask import Flask, jsonify
 import datetime as dt
-from flask import Flask, render_template, redirect
+from flask import Flask, render_template, redirect, flash, request, url_for
+from werkzeug.utils import secure_filename
 
 #################################################
 # Flask Setup
 #################################################
 app = Flask(__name__)
 app.config['JSON_SORT_KEYS'] = False
+UPLOAD_FOLDER = '/static/uploads'
+ALLOWED_EXTENSIONS = {'png', 'jpg'}
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 #################################################
 # Flask Routes
