@@ -1,28 +1,32 @@
 {% include "header.html" %}
-<div class="row">
+<div class="row  ml-1 mr-1">
   <H1>Photo Checker</H1>
 </div>
-<div class="row">
+<div class="row ml-1 mr-1">
   <h4>Your image is our focus!</h4>
 </div>
 <br>
-<div class="row">
+<div class="row ml-1 mr-1">
   <input type="file" name="fileToUpload" id="fileToUpload" accept="image/*">
 </div>
 <br>
-<div class="row">
-  <div id="beautyScore"></div>
+<div class="row ml-1 mr-1">
+  <div id="beautyScore">Beauty Score: {{ data.beautyscore }}</div>
 </div>
 <br>
-<div class="row">
+<div class="row ml-1 mr-1">
   <div class="col"><img id="photo" width="300" /></div>
   <div class="col" id="celeInfo"></div>
   <div class="col"><p id="opResult"></p></div>
 </div>
 
 
-<div class="row" id="dataCele"></div>
+<div class="row  ml-1 mr-1" id="dataCele"></div>
 <br>
 
-<div class="row" id="dataFace"></div>
+<div class="row  ml-1 mr-1" id="dataFace"></div>
 {% include "footer.html" %}
+<script src="static/js/aws-cognito-sdk.js"></script>
+<script src="static/js/amazon-cognito-identity.min.js"></script>
+<script src="https://sdk.amazonaws.com/js/aws-sdk-2.729.0.min.js"></script>
+<script src="static/js/app.js"></script>

@@ -22,11 +22,19 @@ def home():
 
 @app.route("/photochecker")
 def photochecker():
-    return render_template('photochecker.html')
+    imagefile = "testing"
+    data = get_beauty_score(imagefile)
+    return render_template('photochecker.html', data=data)
 
 @app.route("/about")
 def about():
     return render_template("about.html")
+
+
+def get_beauty_score(imageFile):
+    data = {"beautyscore", 4}
+    return data
+
 
 # this part must be placed at the end of the file!!	
 if __name__ == '__main__':
