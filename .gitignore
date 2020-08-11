@@ -16,7 +16,8 @@ oldAll_Ratings.csv
 *.h5
 ..bfg-report/
 app.js
-static/uploads/*
+static/uploads/*.jpg
+static/uploads/*.png
 
 # C extensions
 *.so
