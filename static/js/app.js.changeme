@@ -1,11 +1,10 @@
-// rename this to app.js and put in a real IdentityPoolId
 document.getElementById("fileToUpload").addEventListener("change", function (event) {
   ProcessImage();
 }, false);
 
 //Calls DetectFaces API and shows estimated ages of detected faces
-function DetectFaces(imageData) {
-  AWS.region = "RegionToUse";
+function CheckPhoto(imageData) {
+  AWS.region = 'us-east-1'; 
   var rekognition = new AWS.Rekognition();
   var params = {
     Image: {
@@ -15,11 +14,12 @@ function DetectFaces(imageData) {
       'ALL',
     ]
   };
+
   rekognition.detectFaces(params, function (err, data) {
     if (err) console.log(err, err.stack); // an error occurred
     else {
-      document.getElementById("dataFace").innerHTML = '<h2>Face Details</h2>' + JSON.stringify(data);
-      var table = "<table><tr><th>Key</th><th>Value</th></tr>";
+      // document.getElementById("dataFace").innerHTML = '<h2>Face Details</h2>' + JSON.stringify(data);
+      var table = "<h4>Face Details</h4><table><tr><th>Key</th><th>Value</th></tr>";
       // show each face and build out estimated age table
       for (var i = 0; i < data.FaceDetails.length; i++) {
         table += '<tr><td>AgeRange.Low:</td><td>' + data.FaceDetails[i].AgeRange.Low + '</td></tr>' +
@@ -35,35 +35,59 @@ function DetectFaces(imageData) {
       }
 
       table += "</table>";
-      document.getElementById("opResult").innerHTML = table;
+      document.getElementById("faceDetails").innerHTML = table;
     }
-  });
+  }); // end of detectFaces()
 
   var celeParams = {
-      Image: {
-        Bytes: imageData
-      }
-    };
-  
+    Image: {
+      Bytes: imageData
+    }
+  };
+
   // get celebrity information
   rekognition.recognizeCelebrities(celeParams, function (err, data) {
       if (err) console.log(err, err.stack); // an error occurred
       else {
-          document.getElementById("dataCele").innerHTML = '<h2>Celebrity Info</h2>' + JSON.stringify(data);
-          var celeInfo = ""
+          var celeInfo = "<h4>Celebrity Information</h4>"
           for (var i = 0; i < data.CelebrityFaces.length; i++) {
-              celeInfo += "<p>Name: " + data.CelebrityFaces[i].Name + '</p>' +
-                              "<p>MatchConfidence: " + data.CelebrityFaces[i].MatchConfidence + '</p>' +
-                              "<p>Urls: <a target=”_blank” href=https://" + data.CelebrityFaces[i].Urls + '>' +  
-                              data.CelebrityFaces[i].Urls + '</a></p>' +
-                              '<p>---------------------</p>';
+              celeInfo += "<div>Name: " + data.CelebrityFaces[i].Name + '</div>' +
+                              "<div>MatchConfidence: " + data.CelebrityFaces[i].MatchConfidence + '</div>' +
+                              "<div>Urls: <a target=”_blank” href=https://" + data.CelebrityFaces[i].Urls + '>' +  
+                              data.CelebrityFaces[i].Urls + '</a></div>' +
+                              '<div>---------------------</div>';
           }
           document.getElementById("celeInfo").innerHTML = celeInfo;
       }
-  });
+  }); // end of recognizeCelebrities()
+
+  var labelsParams = {
+    Image: {
+      Bytes: imageData
+    },
+    "MaxLabels": 10,
+    "MinConfidence": 75
+  };
+  
+  // get labels
+  rekognition.detectLabels(labelsParams, function (err, data) {
+    if (err) console.log(err, err.stack); // an error occurred
+    else {
+        var labelInfo = "<h4>Labels Detected</h4><table>";
+        data.Labels.forEach(label => {
+          labelInfo += '<tr><td>Label:</td><td>' + label.Name + '</td></tr>' +
+                       '<tr><td>Confidence:</td><td>' + label.Confidence + '</td></tr>' +
+                       '<tr><td>-------------------</td></tr>';
+        }); // end forEach label
+        labelInfo += "</table>";
+        document.getElementById("photoLabels").innerHTML = labelInfo;
+    }
+  }); // end of detectLabels()
+
 }
 
-//Loads selected image and unencodes image bytes for Rekognition DetectFaces API
+
+//Loads selected image and unencodes image bytes for Rekognition API
 function ProcessImage() {
   AnonLog();
   var control = document.getElementById("fileToUpload");
@@ -102,10 +126,11 @@ function ProcessImage() {
         ua[i] = image.charCodeAt(i);
       }
       //Call Rekognition  
-      DetectFaces(imageBytes);
+      CheckPhoto(imageBytes);
     };
   })(file);
 
+  // enable the "Machine Rating" button
   reader.readAsDataURL(file);
   var submitBtn = document.getElementById("submitBtn");
   submitBtn.disabled = false;
@@ -116,7 +141,7 @@ function AnonLog() {
   // Configure the credentials provider to use your identity pool
   AWS.config.region = 'us-east-1'; // Region
   AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-    IdentityPoolId: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+    IdentityPoolId: 'xxxxxxxxxxxxxxxxxxxxxx',
   });
   // Make the call to obtain credentials
   AWS.config.credentials.get(function () {
