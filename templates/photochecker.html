@@ -9,20 +9,20 @@
 <div class="row ml-1 mr-1">
   <form method=post enctype=multipart/form-data>
     <input type="file" name="fileToUpload" id="fileToUpload" accept="image/*">
-    <input type=submit value="Beauty Score" disabled id="submitBtn">
+    <input type=submit value="Machine Rating" disabled id="submitBtn">
   </form>
 </div>
-<div class="row ml-1 mr-1">(.png and .jpg files only)</div> 
+<div class="row ml-1 mr-1">(.png .jpeg .jpg files only)</div> 
 <br>
 <div class="row ml-1 mr-1">
-  <div class="col"><img id="photo" width="300" /></div>
-  <div class="col" id="celeInfo"></div>
-  <div class="col"><p id="opResult"></p></div>
+  <div class="col">
+    <img id="photo" width="300" />
+    <div id="celeInfo"></div>
+    <div id="textFound"></div>
+  </div>
+  <div class="col" id="faceDetails"></div>
+  <div class="col" id="photoLabels"></div>
 </div>
-<div class="row  ml-1 mr-1" id="dataCele"></div>
-<br>
-
-<div class="row  ml-1 mr-1" id="dataFace"></div>
 
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script> -->
 <script src="static/js/aws-cognito-sdk.js"></script>

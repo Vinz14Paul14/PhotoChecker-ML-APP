@@ -17,7 +17,7 @@ import BeautyScore
 app = Flask(__name__)
 app.config['JSON_SORT_KEYS'] = False
 UPLOAD_FOLDER = 'static/uploads'
-ALLOWED_EXTENSIONS = {'png', 'jpg'}
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 # max upload file size is 16MB
