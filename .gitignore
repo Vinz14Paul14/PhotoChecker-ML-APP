@@ -22,6 +22,8 @@ uploadTest.html
 uploadTest.py
 s3Test.py
 backup/
+images-test1/
+images-test2/
 
 # C extensions
 *.so

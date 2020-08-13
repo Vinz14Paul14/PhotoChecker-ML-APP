@@ -21,7 +21,7 @@ function processFaceData(data) {
 
 
 function processLabelsData(data) {
-  var labelInfo = "<h4>Labels Detected</h4><table>";
+  var labelInfo = "<h4>Top 10 Labels Detected</h4><table>";
   data.Labels.forEach(label => {
     labelInfo += '<tr><td>Label:</td><td>' + label.Name + '</td></tr>' +
                  '<tr><td>Confidence:</td><td>' + label.Confidence + '</td></tr>' +

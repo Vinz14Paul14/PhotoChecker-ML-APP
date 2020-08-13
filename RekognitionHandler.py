@@ -14,7 +14,7 @@ def recognize_celebrities(photo, bucket=s3_bucket):
     return client.recognize_celebrities(Image={'S3Object':{'Bucket':bucket,'Name':photo}})
 
 def detect_labels(photo, bucket=s3_bucket):
-    return client.detect_labels(Image={'S3Object':{'Bucket':bucket,'Name':photo}},MaxLabels=10, MinConfidence=75)
+    return client.detect_labels(Image={'S3Object':{'Bucket':bucket,'Name':photo}},MaxLabels=10, MinConfidence=0)
 
 def main():
     import json
