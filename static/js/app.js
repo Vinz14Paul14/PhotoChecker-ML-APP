@@ -35,7 +35,7 @@ function processCelebrityData(data) {
   var celeInfo = "<h4>Celebrity Information</h4>"
   for (var i = 0; i < data.CelebrityFaces.length; i++) {
       celeInfo += "<div>Name: " + data.CelebrityFaces[i].Name + '</div>' +
-                      "<div>MatchConfidence: " + data.CelebrityFaces[i].MatchConfidence + '%</div>' +
+                      "<div>MatchConfidence: " + data.CelebrityFaces[i].MatchConfidence.toFixed(2) + '%</div>' +
                       "<div>Urls: <a target=”_blank” href=https://" + data.CelebrityFaces[i].Urls + '>' +  
                       data.CelebrityFaces[i].Urls + '</a></div>' +
                       '<div>---------------------</div>';
