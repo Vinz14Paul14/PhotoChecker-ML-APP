@@ -50,10 +50,13 @@ def check_photo(filename):
     data = BeautyScore.get_beauty_score(imageS3url)
     data["filename"] = filename
     data["imageS3url"] = imageS3url
-    data['faceData'] = RekognitionHandler.detect_faces(filename)
     data['celebrityData'] = RekognitionHandler.recognize_celebrities(filename)
     data['labelsData'] = RekognitionHandler.detect_labels(filename)
     data['unsafeData'] = RekognitionHandler.detect_unsafeContent(filename)
+    
+    # put detect_faces last because we will edit the photo on this call
+    data['faceData'] = RekognitionHandler.detect_faces(filename)
+    
     return render_template('photoreport.html', data=data)
     
 @app.route("/photochecker", methods=['POST'])
@@ -72,11 +75,11 @@ def upload_file():
         filename = secure_filename(file.filename)
         timestr = time.strftime("%Y%m%d-%H%M%S")
         filename = timestr + filename
-        print(filename)
+        #print(filename)
         # file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         S3handler.upload_file_to_s3(file, filename=filename, content_type=file.content_type)
         redirect_url = url_for('check_photo', filename=filename)
-        print(f"redirect_url={redirect_url}")
+        #print(f"redirect_url={redirect_url}")
         return redirect(redirect_url)
     else:
         flash('File type not allowed')
