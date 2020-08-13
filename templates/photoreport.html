@@ -7,7 +7,9 @@
           <div class="col">
             <div class="card border-success">
               <div class="card-header">{{data.filename}}</div>
-              <img src="{{data.imageS3url}}" class="card-img-top" id="uploadedPhoto">
+              <a href="{{data.imageS3url}}">
+                <img src="{{data.imageS3url}}" class="card-img-top" id="uploadedPhoto">
+              </a>
               <div class="card-body">
                 <h4 class="card-title">ML Classification: {{ data.beautyscore }}</h4>
                 <p>scale: 1 to 5 (top)</p>

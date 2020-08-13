@@ -3,7 +3,7 @@ from config import aws_access_key_id
 from config import aws_secret_access_key
 from config import s3_bucket
 import io
-from PIL import Image, ImageDraw, ExifTags, ImageColor
+from PIL import Image, ImageDraw, ExifTags, ImageColor, ImageFont
 import S3handler
 # from pathlib import Path
 
@@ -30,6 +30,8 @@ def detect_faces(photo, bucket=s3_bucket):
     # filestem = filestring.stem
     # filesuffix = filestring.suffix
 
+    font = ImageFont.truetype("arial.ttf", 20)
+    index = 1
     # calculate and display bounding boxes for each detected face
     for faceDetail in response['FaceDetails']:
         box = faceDetail['BoundingBox']
@@ -46,11 +48,14 @@ def detect_faces(photo, bucket=s3_bucket):
             (left, top)
         )
         draw.line(points, fill='#00d400', width=2)  # green
+        draw.text((left,top), str(index), fill="red", font=font)
+        index += 1
 
         # Alternatively can draw rectangle. However you can't set line width.
         #draw.rectangle([left,top, left + width, top + height], outline='#00d400')
 
         # we could save individual faces as files in s3, but this is an expensive operation
+        # To Do: crop the face and save as a separate file, add face1, face2 etc to file name
         # box = (left,top, left + width, top + height)
         # region = image.crop(box)
 
