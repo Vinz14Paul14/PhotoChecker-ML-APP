@@ -10,6 +10,7 @@ import time
 import requests
 from flask import send_from_directory
 from config import s3_bucket
+from config import SECRET_KEY
 import BeautyScore
 import S3handler
 import RekognitionHandler
@@ -23,6 +24,7 @@ app.config['JSON_SORT_KEYS'] = False
 UPLOAD_FOLDER = 'static/uploads'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['SECRET_KEY'] = SECRET_KEY
 
 # max upload file size is 16MB
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
@@ -72,7 +74,10 @@ def upload_file():
         S3handler.upload_file_to_s3(file, filename=filename)
         redirect_url = url_for('check_photo', filename=filename)
         print(f"redirect_url={redirect_url}")
-        return redirect(redirect_url) 
+        return redirect(redirect_url)
+    else:
+        flash('File type not allowed')
+        return redirect(request.url)
     
 
 @app.route("/photochecker", methods=['GET'])
