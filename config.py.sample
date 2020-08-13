@@ -1,0 +1,4 @@
+# rename this file to config.py and add your aws id and key here
+aws_access_key_id = "YOUR_ACCESS_KEY"
+aws_secret_access_key = "YOUR_SECRET_KEY"
+s3_bucket = "Your S3 Bucket name"

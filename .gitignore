@@ -15,9 +15,13 @@ convertPtsToText.py
 oldAll_Ratings.csv
 *.h5
 ..bfg-report/
-app.js
 static/uploads/*.jpg
 static/uploads/*.png
+app.js.localProcessing
+uploadTest.html
+uploadTest.py
+s3Test.py
+backup/
 
 # C extensions
 *.so

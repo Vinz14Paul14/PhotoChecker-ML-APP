@@ -9,7 +9,11 @@ from werkzeug.utils import secure_filename
 import time
 import requests
 from flask import send_from_directory
+from config import s3_bucket
 import BeautyScore
+import S3handler
+import RekognitionHandler
+
 
 #################################################
 # Flask Setup
@@ -36,35 +40,43 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-@app.route('/uploads/<filename>')
-def uploaded_file(filename):
-    data = BeautyScore.get_beauty_score(filename)
+@app.route('/photoreport/<filename>')
+def check_photo(filename):
+    imageS3url = f"https://{s3_bucket}.s3.amazonaws.com/{filename}"
+    data = BeautyScore.get_beauty_score(imageS3url)
     data["filename"] = filename
-    print(data)
-    return render_template('score.html', data=data)
+    data["imageS3url"] = imageS3url
+    data['faceData'] = RekognitionHandler.detect_faces(filename)
+    data['celebrityData'] = RekognitionHandler.recognize_celebrities(filename)
+    data['labelsData'] = RekognitionHandler.detect_labels(filename)
+    return render_template('photoreport.html', data=data)
     
-@app.route("/photochecker", methods=['GET', 'POST'])
+@app.route("/photochecker", methods=['POST'])
+def upload_file():
+    # check if the post request has the file part
+    if 'fileToUpload' not in request.files:
+        flash('No file part')
+        return redirect(request.url)
+    file = request.files['fileToUpload']
+    # if user does not select file, browser also
+    # submit an empty part without filename
+    if file.filename == '':
+        flash('No selected file')
+        return redirect(request.url)
+    if file and allowed_file(file.filename):
+        filename = secure_filename(file.filename)
+        timestr = time.strftime("%Y%m%d-%H%M%S")
+        filename = timestr + filename
+        print(filename)
+        # file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        S3handler.upload_file_to_s3(file, filename=filename)
+        redirect_url = url_for('check_photo', filename=filename)
+        print(f"redirect_url={redirect_url}")
+        return redirect(redirect_url) 
+    
+
+@app.route("/photochecker", methods=['GET'])
 def photochecker():
-    if request.method == 'POST':
-        # check if the post request has the file part
-        if 'fileToUpload' not in request.files:
-            flash('No file part')
-            return redirect(request.url)
-        file = request.files['fileToUpload']
-        # if user does not select file, browser also
-        # submit an empty part without filename
-        if file.filename == '':
-            flash('No selected file')
-            return redirect(request.url)
-        if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
-            timestr = time.strftime("%Y%m%d-%H%M%S")
-            filename = timestr + filename
-            print(filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            redirect_url = url_for('uploaded_file', filename=filename)
-            print(f"redirect_url={redirect_url}")
-            return redirect(redirect_url) 
     return render_template('photochecker.html')
 
 @app.route("/about")
