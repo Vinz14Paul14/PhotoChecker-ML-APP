@@ -5,6 +5,7 @@ from config import s3_bucket
 import io
 from PIL import Image, ImageDraw, ExifTags, ImageColor
 import S3handler
+# from pathlib import Path
 
 client=boto3.client('rekognition',
     aws_access_key_id=aws_access_key_id,
@@ -23,6 +24,11 @@ def detect_faces(photo, bucket=s3_bucket):
 
     imgWidth, imgHeight = image.size  
     draw = ImageDraw.Draw(image)
+    
+    # for saving individual faces as files 
+    # filestring = Path(photo)
+    # filestem = filestring.stem
+    # filesuffix = filestring.suffix
 
     # calculate and display bounding boxes for each detected face
     for faceDetail in response['FaceDetails']:
@@ -31,7 +37,6 @@ def detect_faces(photo, bucket=s3_bucket):
         top = imgHeight * box['Top']
         width = imgWidth * box['Width']
         height = imgHeight * box['Height']
-        
 
         points = (
             (left,top),
@@ -39,17 +44,23 @@ def detect_faces(photo, bucket=s3_bucket):
             (left + width, top + height),
             (left , top + height),
             (left, top)
-
         )
         draw.line(points, fill='#00d400', width=2)  # green
 
-        # save the image to an
-        in_mem_file = io.BytesIO()
-        image.save(in_mem_file, format=image.format)
-        in_mem_file.seek(0)
+        # Alternatively can draw rectangle. However you can't set line width.
+        #draw.rectangle([left,top, left + width, top + height], outline='#00d400')
 
-        # save image file back to S3 using the same filename
-        S3handler.upload_file_to_s3(file=in_mem_file, filename=photo, content_type=content_type)
+        # we could save individual faces as files in s3, but this is an expensive operation
+        # box = (left,top, left + width, top + height)
+        # region = image.crop(box)
+
+    # save the image to an in memory file
+    in_mem_file = io.BytesIO()
+    image.save(in_mem_file, format=image.format)
+    in_mem_file.seek(0)
+
+    # save image file back to S3 using the same filename
+    S3handler.upload_file_to_s3(file=in_mem_file, filename=photo, content_type=content_type)
     return response
 
 def recognize_celebrities(photo, bucket=s3_bucket):
