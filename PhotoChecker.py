@@ -44,6 +44,8 @@ def allowed_file(filename):
 
 @app.route('/photoreport/<filename>')
 def check_photo(filename):
+    if not S3handler.check_file(filename):
+        return render_template('filenotfound.html', data=filename)
     imageS3url = f"https://{s3_bucket}.s3.amazonaws.com/{filename}"
     data = BeautyScore.get_beauty_score(imageS3url)
     data["filename"] = filename

@@ -36,3 +36,10 @@ def upload_file_to_s3(file, filename, content_type, bucket_name=s3_bucket, acl="
 def get_file(filename, bucket_name=s3_bucket):
     response = s3.get_object(Bucket=bucket_name, Key=filename)
     return response
+
+def check_file(filename, bucket_name=s3_bucket):
+    response = s3.list_objects_v2(Bucket=bucket_name, Prefix=filename, MaxKeys=1)
+    for obj in response.get("Contents", []):
+        if obj["Key"] == filename:
+            return True
+    return False
