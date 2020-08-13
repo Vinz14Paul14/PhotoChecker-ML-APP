@@ -23,16 +23,14 @@ function processFaceData(data) {
 function processLabelsData(data) {
   var labelInfo = "<h4>Top 10 Labels Detected</h4><table>";
   data.Labels.forEach(label => {
-    labelInfo += '<tr><td>Label:</td><td>' + label.Name + '</td></tr>' +
-                 '<tr><td>Confidence:</td><td>' + label.Confidence.toFixed(2) + '%</td></tr>' +
-                 '<tr><td>-------------------</td></tr>';
+    labelInfo += '<tr><td>' + label.Name + '</td><td>' + label.Confidence.toFixed(2) + '%</td></tr>';
   }); // end forEach label
   labelInfo += "</table>";
   document.getElementById("labelsData").innerHTML = labelInfo;
 }
 
 function processCelebrityData(data) {
-  var celeInfo = "<h4>Celebrity Information</h4>"
+  var celeInfo = "<h4>Celebrity Information:</h4>"
   for (var i = 0; i < data.CelebrityFaces.length; i++) {
       celeInfo += "<div>Name: " + data.CelebrityFaces[i].Name + '</div>' +
                       "<div>MatchConfidence: " + data.CelebrityFaces[i].MatchConfidence.toFixed(2) + '%</div>' +
@@ -43,9 +41,18 @@ function processCelebrityData(data) {
   document.getElementById("celebrityData").innerHTML = celeInfo;
 }
 
+function processUnsafeData(data) {
+  var unsafeData = "<h4>Unsafe Contents:</h4><table>";
+  data.ModerationLabels.forEach(label => {
+    unsafeData += '<tr><td>' + label.Name + '</td><td>' + label.Confidence.toFixed(2) + '%</td></tr>';
+  }); // end forEach label
+  unsafeData += "</table>";
+  document.getElementById("unsafeData").innerHTML = unsafeData;
+}
 
 function processData(data) {
   processFaceData(data['faceData'])
   processLabelsData(data['labelsData'])
   processCelebrityData(data['celebrityData'])
+  processUnsafeData(data['unsafeData'])
 }

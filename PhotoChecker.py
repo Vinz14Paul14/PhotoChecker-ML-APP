@@ -51,6 +51,7 @@ def check_photo(filename):
     data['faceData'] = RekognitionHandler.detect_faces(filename)
     data['celebrityData'] = RekognitionHandler.recognize_celebrities(filename)
     data['labelsData'] = RekognitionHandler.detect_labels(filename)
+    data['unsafeData'] = RekognitionHandler.detect_unsafeContent(filename)
     return render_template('photoreport.html', data=data)
     
 @app.route("/photochecker", methods=['POST'])
@@ -71,7 +72,7 @@ def upload_file():
         filename = timestr + filename
         print(filename)
         # file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        S3handler.upload_file_to_s3(file, filename=filename)
+        S3handler.upload_file_to_s3(file, filename=filename, content_type=file.content_type)
         redirect_url = url_for('check_photo', filename=filename)
         print(f"redirect_url={redirect_url}")
         return redirect(redirect_url)
