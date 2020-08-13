@@ -31,8 +31,17 @@ def detect_faces(photo, bucket=s3_bucket):
         top = imgHeight * box['Top']
         width = imgWidth * box['Width']
         height = imgHeight * box['Height']
-                
-        draw.rectangle([left,top, left + width, top + height], outline='#00d400') 
+        
+
+        points = (
+            (left,top),
+            (left + width, top),
+            (left + width, top + height),
+            (left , top + height),
+            (left, top)
+
+        )
+        draw.line(points, fill='#00d400', width=2)  # green
 
         # save the image to an
         in_mem_file = io.BytesIO()
