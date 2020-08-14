@@ -2,6 +2,6 @@ document.getElementById("fileToUpload").addEventListener("change", function (eve
     var submitBtn = document.getElementById("submitBtn");
     submitBtn.disabled = false;
     var flashes  = document.getElementById("uploadFlashes");
-    flashes.remove();
+    flashes.innerHTML = ""
   }, false);
   
