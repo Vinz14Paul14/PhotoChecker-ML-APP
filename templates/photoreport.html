@@ -1,7 +1,7 @@
 {% include "header.html" %}
         <br>
         <h2>Here is what we found from your uploaded photo:</h2>
-        <div>Your uploaded file will be deleted after 24 hours automatically</div>
+        <div>Your uploaded file will be deleted automatically after 24 hours</div>
         <hr>
         <div class="row ml-1 mr-1">
           <div class="col">
@@ -11,8 +11,8 @@
                 <img src="{{data.imageS3url}}" class="card-img-top" id="uploadedPhoto">
               </a>
               <div class="card-body">
-                <h4 class="card-title">ML Classification: {{ data.beautyscore }}</h4>
-                <p>scale: 1 to 5 (top)</p>
+                <h4 class="card-title">Beauty Score: {{ data.beautyscore }}</h4>
+                <p>Scale: 1 to 5 (top)</p>
                 <p>Percent Confidence: {{ data.confidence }}%</p>
               </div>
             </div>
