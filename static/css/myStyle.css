@@ -34,6 +34,10 @@ font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     width: 193px;
 }
 
+#uploadedPhoto {
+    width: 300px;
+}
+
 .card-header {
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
