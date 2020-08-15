@@ -1,44 +1,139 @@
 
 {% include "header.html" %}
-<div class="row  ml-1 mr-1">
-    <h1> Project Discription </h1>
-</div>
+  <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img class="d-block w-100" src="/static/image/AII.png" alt="First slide">
+      </div>
+    </div>
+  </div>
 <br>
+<hr> 
+<br> 
 <div class="row  ml-1 mr-1">
-    <div>
-        <h1> Team - The Fantastic Five </h1>
-        <ul>
-            <li>Tanvir Khan</li>
-            <li>Nicky Pant</li>
-            <li>Paul Pineda</li>
-            <li>James Ye</li>
-            <li>Fabienne Zumbeuhl</li>
-        </ul>
+    <div class="card" style="width: 70rem;">
+      <div class="row  ml-1 mr-1">
+        <div class="card-body">
+                <h2> Project Discription </h2>
+                This project is the final project of the UC Berkeley Data & Analytics Bootcamp. The goal of the project was to develop a Machine Learning application.  
+                Our mission was to focus on facial recognition. Our group developed the "Photo Checker Application". <br> 
+                <br> 
+                <br> 
+                The Photo Checker Application uses Amazona's Rekognition API to recognize famous people in an image that  
+                is being uploaded. The Application can detect how many people are in the image and whether the image includes
+                unsafe content. 
+                <br> 
+                <br> 
+                In addition to that, we included a machine learning feature in the Photo Checker Application that, based on 
+                on training data, gives the people in the image a score from 1 to 5 (low to high). People were asked to label the training data i.e.
+                images of Caucasion Males and Females, as well as of Asian Males and Females from 1 to 5, based on the perceived
+                attractiveness of those people. <br>
+                We trained our Machine Learning Model with this data. Now, any image inputed (celebrity or non-celebrity) will get
+                ranked by our Machine Learning Model. <br>
+                <br>
+                <br>
+                <h5>IMPORTANT</h5>
+                We want to emphazise that our group does not support the ranking of people based on visual apprearance! 
+                Our goal was rather to show how a machine learning model can be trained on subjective, labeled data.
+                Since the data labeled is based on subjectivity, the machine learning classification from 1 to 5
+                is inherently biased.
+                <br>
+                <br>
+                <h5>Machine Learning Models should be designed with caution</h5> 
+        </div>
+      </div>
     </div>
 </div>
 <br>
-<div class="row  ml-1 mr-1">
-    <div>
-        <h1> Data </h1>
-        <ul>
-            <li>link to Tableau Dashboard</li>
-            <li>link to github SCUT-FBP5500 repository</li>
-        </ul>
+<hr> 
+<br>
+<div class="row  ml-2 mr-2">
+    <div class="card" style="width: 27rem;">
+        <br>
+        <img src="/static/image/LOGO.png" class="card-img-top" alt="...">
+      <div class="row  ml-2 mr-2">
+        <div class="card-body">
+          <h2 class="card-title">Team - The Fantastic Five</h2>
+          <p class="card-text"> Click on our names to get to our GitHub Accounts</p>
+            <ul>
+                <a href="https://github.com/Tanvir23khan">
+                    <li>Tanvir Khan</li>
+                </a>
+                <a href="https://github.com/Vinz14Paul14">
+                    <li>Paul Pineda</li>
+                </a>
+                <a href="https://github.com/arohipant">
+                    <li>Nicky Pant</li>
+                </a>
+                <a href="https://github.com/zhaoyun95">
+                    <li>James Ye</li>
+                </a>
+                <a href="https://github.com/fabzum">
+                    <li>Fabienne Zumbuehl</li>
+                </a>
+            </ul>
+            <br>
+            <br>
+          <a href="https://www.cnn.com/2020/08/12/tech/face-recognition-masks/index.html" class="btn btn-dark">Recent news on Facial Recognition</a>
+        </div>
+      </div>
+    </div>
+    <div class="row  ml-2 mr-2">
+        <div class="card" style="width: 40rem;">
+          <div class="row  ml-1 mr-1">
+            <div class="card-body">
+              <h2 class="card-title">School</h2>
+              <p class="card-text"> This project is the final project of the 24-week long Data and Analytics Bootcamp at UC Berkeley Extension. We want thank our support team: <br>
+             <br>
+              Instructor:  Alexis Baird <br>
+              Teaching Assistants:  Amanda Robinson & Nino Yosinao<br>
+              Student Success Manager:  Alexandra Bonato<br>
+              <br>
+              <h5>Thank you!!!</h5>
+              </p>
+              <img src="/static/image/UC.jpeg" class="card-img-bottom" alt="..."> <br>
+              <br>
+              <a href="https://bootcamp.berkeley.edu/data/" class="btn btn-dark">To UC Berkeley Extension</a>
+            </div>
+          </div>
+        </div>
     </div>
 </div>
 <br>
-<div class="row  ml-1 mr-1">
-    <div>
-    <h1> School </h1>
-        Trilogy Education Services
-        <br>
-        UC Berkeley Extensions
-        <br>
-        Student Success Manager: Alexandrea Bonato
-        <br>
-        Instructor:  Alexis Baird
-        <br>
-        Teaching Assistants: Amanda Robinson; Nino Yosinao
+<hr> 
+<br>
+<div class="row  ml-2 mr-2">
+    <div class="card" style="width: 70rem;">
+      <div class="row  ml-2 mr-2">
+        <div class="card-body">
+                <h2> Data</h2>
+                Our Data has been retrieved from the SCUT-FBP5500-Database<br>
+                <br>
+                Find the link to the Github repo here: <br>
+                <a href="https://github.com/HCIILAB/SCUT-FBP5500-Database-Release">
+                    <p>SCUT-FBP5500-Database-Release</p> </a>
+                <img src="/static/image/DATA.png" class="data-image" alt="..."> 
+                <br>
+        </div>
+        <div class="card-body">
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <h5>About the Data</h5>
+            <br>
+            <ul>
+                <li>60 raters labeled the data with a "Beauty Score" from 1 to 5</li>
+                <li>The distribution of the scores is a Normal Distribution</li>
+                <li>People in the images that were labeled were Causasion Male/Female and Asian Male/Female</li>
+                <li>Caucation and Asian Females got the highest rating, followed by Causasion Male and Asian Males</li>
+            </ul>
+            <br>
+    </div>
+      </div>
     </div>
 </div>
 {% include "footer.html" %}
