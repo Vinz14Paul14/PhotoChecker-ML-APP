@@ -6,5 +6,5 @@
 * James Ye
 * Fabienne Zumbeuhl
 
-### Objective: Provide an attractive score for user uploaded photoes
+### Objective: Showing the dangers of ML, by creating a biased application analyzing user inputed photos. 
 
